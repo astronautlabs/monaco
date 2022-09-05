@@ -1,7 +1,7 @@
 {
-  "name": "ngx-monaco-editor",
+  "name": "@astronautlabs/monaco",
   "version": "12.0.0",
-  "description": "Monaco Code Editor For Angular",
+  "description": "Monaco Editor For Angular",
   "keywords": [
     "angular",
     "monaco",
@@ -13,14 +13,14 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "run-s build-editor serve",
+    "start": "run-s library:build serve",
     "serve": "ng serve",
     "build": "ng build --project=editor-tester --base-href=editor-tester --configuration=development",
     "build:prod": "ng build --project=editor-tester --base-href=editor-tester",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-editor": "npm run copy:readme && ng build editor",
-    "npm-publish": "npm run build-editor && bash npm-publish",
+    "library:build": "npm run copy:readme && ng build editor",
+    "prepublishOnly": "npm run library:build",
     "copy:readme": "cp -rf README.md projects/editor/"
   },
   "private": false,
@@ -31,8 +31,9 @@
   "bugs": {
     "url": "https://github.com/atularen/ngx-monaco-editor/issues"
   },
-  "author": "Atul Kumar",
+  "author": "Astronaut Labs, LLC",
   "contributors": [
+    "Astronaut Labs, LLC <inquiries+npm@astronautlabs.com>",
     "Atul Kumar <atulaggarwal4288@gmail.com>"
   ],
   "dependencies": {
