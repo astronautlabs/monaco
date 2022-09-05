@@ -1,21 +1,16 @@
-# Monaco Editor Component for Angular 12 and up
-
-Using this Module you can utilize the Monaco Editor as an Angular Component. Feel free to contribute, raise feature requests and make it better.
-
-Supports all the options available in monaco-editor [Monaco Editor Options](https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ieditorconstructionoptions.html)
+# @/monaco
+## Monaco Editor Component for Angular 12 and up
 
 ## Setup
 
-### Installation
 > **Which version should I use for my version of Angular?**  
 > As new Angular versions are released, the major version of this library will always match the major version of Angular.
 
-Install from npm repository:
 ```bash
 npm install monaco-editor @astronautlabs/monaco@12 --save # eg, for Angular 12
  ```
 
-Include the monaco-editor assets so they can be loaded at runtime:
+You must include the monaco-editor assets in the build so they can be loaded at runtime:
 ```typescript
 // in projects.[project-name].architect.build:
 {
@@ -32,8 +27,8 @@ Include the monaco-editor assets so they can be loaded at runtime:
 }
  ```
 
-### Sample
-Include MonacoEditorModule in Main Module and Feature Modules where you want to use the editor component.(eg: app.module.ts): 
+Include `MonacoEditorModule`:
+
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -49,7 +44,9 @@ import { MonacoEditorModule } from '@astronautlabs/monaco';
   imports: [
     BrowserModule,
     FormsModule,
-    MonacoEditorModule.forRoot() // use forRoot() in main app module only.
+    MonacoEditorModule.forRoot({
+      // Options
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -58,28 +55,37 @@ export class AppModule {
 }
 ```
 
-Create Editor options in component.(eg: app.component.ts)
+Make sure to also import `MonacoEditorModule` (without `.forRoot()`) in each module that you use `<ngx-monaco-editor>`
+
+# Using the Editor
+
+In most cases you'll want to specify options for particular instances of Monaco:
 ```typescript
 import { Component } from '@angular/core';
+import * as monaco from 'monaco-editor';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  editorOptions = {theme: 'vs-dark', language: 'javascript'};
-  code: string= 'function x() {\nconsole.log("Hello world!");\n}';
+  editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
+    theme: 'vs-dark', 
+    language: 'javascript'
+  };
+
+  code: string = 'function x() {\nconsole.log("Hello world!");\n}';
 }
 ```
-Include editor in html with options and ngModel bindings.(eg: app.component.html)
+
+HTML
+
 ```html
-<@astronautlabs/monaco [options]="editorOptions" [(ngModel)]="code"></@astronautlabs/monaco>
+<ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
 ```
 
-Include diff-editor in html with options.(eg: app.component.html)
-```html
-<ngx-monaco-diff-editor [options]="options" [originalModel]="originalModel" [modifiedModel]="modifiedModel"></ngx-monaco-diff-editor>
-```
+# Using the Diff Editor
+
 ```typescript
 import { Component } from '@angular/core';
 import { DiffEditorModel } from '@astronautlabs/monaco';
@@ -104,16 +110,22 @@ export class AppComponent {
 }
 ```
 
-### Styling
+HTML
+
+```html
+<ngx-monaco-diff-editor [options]="options" [originalModel]="originalModel" [modifiedModel]="modifiedModel"></ngx-monaco-diff-editor>
+```
+
+# Styling
 To match height of container element add height: 100% and wrap in container
 ```html
 <div style="height: 500px">
-    <@astronautlabs/monaco style="height: 100%" [options]="editorOptions" [(ngModel)]="code"></@astronautlabs/monaco>
+    <ngx-monaco-editor style="height: 100%" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
 </div>
 ```
 Add class to editor tag. (eg. class="my-code-editor")
 ```html
-<@astronautlabs/monaco class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></@astronautlabs/monaco>
+<ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
 ```
 Add styling in css/scss file:
 ```scss
@@ -125,10 +137,10 @@ Add styling in css/scss file:
 ```
 Set automaticLayout option to adjust editor size dynamically. Recommended when using in modal dialog or tabs where editor is not visible initially.
 
-### Events
+# Events
 Output event (onInit) expose editor instance that can be used for performing custom operations on the editor. 
 ```html
-<@astronautlabs/monaco [options]="editorOptions" [(ngModel)]="code" (onInit)="onInit($event)"></@astronautlabs/monaco>
+<ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code" (onInit)="onInit($event)"></ngx-monaco-editor>
 ```
 
 ```typescript
@@ -142,7 +154,8 @@ export class AppComponent {
 }
 ```
 
-## Configurations
+# Configuration
+
 `forRoot()` method of MonacoEditorModule accepts config of type `NgxMonacoEditorConfig`.
 ```typescript
 import { NgModule } from '@angular/core';
@@ -174,8 +187,9 @@ export class AppModule {
 }
 ```
 
-### Configure JSON Defaults
-`onMonacoLoad` property of `NgxMonacoEditorConfig` can be used to configure JSON default.
+# Language Defaults
+`onMonacoLoad` property of `NgxMonacoEditorConfig` can be used to configure language defaults.
+
 ```typescript
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -247,7 +261,7 @@ Now pass model config of type `NgxEditorModel` to Editor Component
 ```typescript
 @Component({
   selector: 'app-root',
-  template: `<@astronautlabs/monaco [options]="options" [model]="model"></@astronautlabs/monaco>`,
+  template: `<ngx-monaco-editor [options]="options" [model]="model"></ngx-monaco-editor>`,
   styles: []
 })
 export class AppComponent {
@@ -270,10 +284,7 @@ export class AppComponent {
 }
 ```
 
-## Links
-[Monaco Editor](https://github.com/Microsoft/monaco-editor/)<br/>
-[Monaco Editor Options](https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ieditorconstructionoptions.html)
+# Resources
 
-## License
-
-MIT © [Atul Kumar](https://github.com/atularen)
+- [Monaco Editor](https://github.com/Microsoft/monaco-editor/)
+    - [Options](https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.ieditorconstructionoptions.html)

@@ -12,7 +12,7 @@
     "declaration": false,
     "downlevelIteration": true,
     "paths": {
-      "editor": [
+      "@astronautlabs/monaco": [
         "dist/editor/editor",
         "dist/editor"
       ]

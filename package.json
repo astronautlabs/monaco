@@ -13,15 +13,14 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "run-s library:build serve",
-    "serve": "ng serve",
+    "build:lib:watch": "run-s build:lib serve",
+    "start": "ng serve",
     "build": "ng build --project=editor-tester --base-href=editor-tester --configuration=development",
     "build:prod": "ng build --project=editor-tester --base-href=editor-tester",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "library:build": "npm run copy:readme && ng build editor",
-    "prepublishOnly": "npm run library:build",
-    "copy:readme": "cp -rf README.md projects/editor/"
+    "build:lib": "ng build editor",
+    "prepublishOnly": "npm run build:lib"
   },
   "private": false,
   "repository": {

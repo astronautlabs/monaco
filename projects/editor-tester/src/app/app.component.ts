@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DiffEditorModel, NgxEditorModel } from 'editor';
+import { DiffEditorModel, NgxEditorModel } from '@astronautlabs/monaco';
 
 declare var monaco: any;
 
