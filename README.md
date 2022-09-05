@@ -1,7 +1,12 @@
 # @/monaco
-## Monaco Editor Component for Angular 12 and up
+## Monaco Editor Component for Angular
 
-## Setup
+[![Version](https://img.shields.io/npm/v/@astronautlabs/monaco.svg)](https://www.npmjs.com/package/@astronautlabs/monaco)
+
+> **Stable**  
+> This software is ready for production use.
+
+# Setup
 
 > **Which version should I use for my version of Angular?**  
 > As new Angular versions are released, the major version of this library will always match the major version of Angular.
