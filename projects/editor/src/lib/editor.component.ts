@@ -4,6 +4,7 @@ import { fromEvent } from 'rxjs';
 
 import { BaseEditor } from './base-editor';
 import { NGX_MONACO_EDITOR_CONFIG, NgxMonacoEditorConfig } from './config';
+import { MonacoEditorLoader } from './editor-loader.service';
 import { NgxEditorModel } from './types';
 
 declare var monaco: any;
@@ -56,8 +57,12 @@ export class EditorComponent extends BaseEditor implements ControlValueAccessor 
     }
   }
 
-  constructor(private zone: NgZone, @Inject(NGX_MONACO_EDITOR_CONFIG) private editorConfig: NgxMonacoEditorConfig) {
-    super(editorConfig);
+  constructor(
+    private zone: NgZone, 
+    @Inject(NGX_MONACO_EDITOR_CONFIG) private editorConfig: NgxMonacoEditorConfig,
+    loader: MonacoEditorLoader
+  ) {
+    super(editorConfig, loader);
   }
 
   writeValue(value: any): void {
