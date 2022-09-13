@@ -1,20 +1,12 @@
 {
-  "name": "ngx-monaco-editor",
+  "name": "@astronautlabs/monaco",
   "version": "12.1.0",
-  "private": false,
-  "description": "Monaco Code Editor for Angular",
+  "description": "Monaco Editor for Angular",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "angular",
-    "angular 2+",
-    "angular 2",
-    "angular 4",
-    "angular 5",
-    "angular 6",
-    "angular 7",
-    "angular 8",
-    "angular 9",
-    "angular 10",
-    "angular 12",
     "monaco",
     "monaco-editor",
     "code",
@@ -24,14 +16,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/atularen/ngx-monaco-editor.git"
+    "url": "https://github.com/astronautlabs/monaco.git"
   },
   "bugs": {
-    "url": "https://github.com/atularen/ngx-monaco-editor/issues"
+    "url": "https://github.com/astronautlabs/monaco/issues"
   },
   "license": "MIT",
-  "author": "Atul Kumar",
+  "author": "Astronaut Labs, LLC",
   "contributors": [
+    "Astronaut Labs, LLC <inquiries+npm@astronautlabs.com>",
     "Atul Kumar <atulaggarwal4288@gmail.com>"
   ],
   "peerDependencies": {
