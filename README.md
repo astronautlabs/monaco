@@ -32,6 +32,25 @@ You must include the monaco-editor assets in the build so they can be loaded at 
 }
  ```
 
+# Referencing Monaco Types
+
+**Important**: Monaco is loaded dynamically at runtime. You should only use `import type` or `/// <reference ...>` when accessing types from the `monaco-editor` package to avoid loading Monaco twice which can cause reference confusion.
+
+However, Monaco's `monaco` global cannot be represented to Typescript using, for instance, `import type * as monaco from 'monaco-editor'`. 
+
+The other solution is to use `/// <reference ...>`, but unfortunately the type declarations found by Typescript when using `// <reference types="monaco-editor" />` is the editor API which is incorrect.
+
+A working solution is the following:
+
+```typescript
+/// <reference path="../../node_modules/monaco-editor/monaco.d.ts" />
+monaco.languages // <-- Correct Typescript types and no undefined variable "monaco" error
+```
+
+Unfortunately this means you will need to vary this directive based on where a source file is within your application.
+
+# Add the Angular Module
+
 Include `MonacoEditorModule`:
 
 ```typescript
@@ -67,7 +86,7 @@ Make sure to also import `MonacoEditorModule` (without `.forRoot()`) in each mod
 In most cases you'll want to specify options for particular instances of Monaco:
 ```typescript
 import { Component } from '@angular/core';
-import * as monaco from 'monaco-editor';
+import type * as monaco from 'monaco-editor';
 
 @Component({
   selector: 'app-root',
