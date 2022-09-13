@@ -1,3 +1,4 @@
+export * from './lib/editor-loader.service';
 export * from './lib/editor.component';
 export * from './lib/diff-editor.component';
 export * from './lib/editor.module';

@@ -4,6 +4,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { NGX_MONACO_EDITOR_CONFIG, NgxMonacoEditorConfig } from './config';
 import { DiffEditorComponent } from './diff-editor.component';
 import { EditorComponent } from './editor.component';
+import { MonacoEditorLoader } from './editor-loader.service';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ export class MonacoEditorModule {
     return {
       ngModule: MonacoEditorModule,
       providers: [
-        { provide: NGX_MONACO_EDITOR_CONFIG, useValue: config }
+        { provide: NGX_MONACO_EDITOR_CONFIG, useValue: config },
+        MonacoEditorLoader
       ]
     };
   }

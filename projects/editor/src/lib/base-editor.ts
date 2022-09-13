@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, OnDestroy, Output, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NGX_MONACO_EDITOR_CONFIG, NgxMonacoEditorConfig } from './config';
+import { MonacoEditorLoader } from './editor-loader.service';
 
 let loadedMonaco = false;
 let loadPromise: Promise<void>;
@@ -15,46 +16,15 @@ export abstract class BaseEditor implements AfterViewInit, OnDestroy {
   protected _options: any;
   protected _windowResizeSubscription: Subscription;
 
-  constructor(@Inject(NGX_MONACO_EDITOR_CONFIG) protected config: NgxMonacoEditorConfig) {}
+  constructor(
+    @Inject(NGX_MONACO_EDITOR_CONFIG) protected config: NgxMonacoEditorConfig,
+    private loader: MonacoEditorLoader
+  ) {
+  }
 
-  ngAfterViewInit(): void {
-    if (loadedMonaco) {
-      // Wait until monaco editor is available
-      loadPromise.then(() => {
-        this.initMonaco(this._options);
-      });
-    } else {
-      loadedMonaco = true;
-      loadPromise = new Promise<void>((resolve: any) => {
-        const baseUrl = (this.config.baseUrl || './assets') + '/monaco-editor/min/vs';
-        if (typeof ((<any>window).monaco) === 'object') {
-          resolve();
-          return;
-        }
-        const onGotAmdLoader: any = () => {
-          // Load monaco
-          (<any>window).require.config({ paths: { 'vs': `${baseUrl}` } });
-          (<any>window).require([`vs/editor/editor.main`], () => {
-            if (typeof this.config.onMonacoLoad === 'function') {
-              this.config.onMonacoLoad();
-            }
-            this.initMonaco(this._options);
-            resolve();
-          });
-        };
-
-        // Load AMD loader if necessary
-        if (!(<any>window).require) {
-          const loaderScript: HTMLScriptElement = document.createElement('script');
-          loaderScript.type = 'text/javascript';
-          loaderScript.src = `${baseUrl}/loader.js`;
-          loaderScript.addEventListener('load', onGotAmdLoader);
-          document.body.appendChild(loaderScript);
-        } else {
-          onGotAmdLoader();
-        }
-      });
-    }
+  async ngAfterViewInit() {
+    await this.loader.load();
+    this.initMonaco(this._options);
   }
 
   protected abstract initMonaco(options: any): void;
