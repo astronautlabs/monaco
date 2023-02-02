@@ -20,6 +20,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:lib": "ng build editor",
+    "publish:lib": "ng build editor && cd dist/editor && npm publish",
     "copy:readme": "copy-cli README.md dist/editor",
     "prepublishOnly": "npm run build:lib && npm run copy:readme"
   },
