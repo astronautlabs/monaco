@@ -19,8 +19,8 @@
     "build:prod": "ng build --project=editor-tester --base-href=editor-tester",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:lib": "ng build editor",
-    "publish:lib": "ng build editor && cd dist/editor && npm publish",
+    "build:lib": "ng build editor && npm run copy:readme",
+    "publish:lib": "npm run build:lib && cd dist/editor && npm publish",
     "copy:readme": "copy-cli README.md dist/editor",
     "prepublishOnly": "npm run build:lib && npm run copy:readme"
   },
