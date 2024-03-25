@@ -28,9 +28,9 @@
     "Atul Kumar <atulaggarwal4288@gmail.com>"
   ],
   "peerDependencies": {
-    "@angular/common": "^14.0.0",
-    "@angular/core": "^14.0.0",
-    "@angular/forms": "^14.0.0",
+    "@angular/common": "^14 || ^15 || ^16 || ^17",
+    "@angular/core": "^14 || ^15 || ^16 || ^17",
+    "@angular/forms": "^14 || ^15 || ^16 || ^17",
     "monaco-editor": "^0.24.0"
   },
   "dependencies": {
