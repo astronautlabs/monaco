@@ -13,7 +13,7 @@ export abstract class BaseEditor implements AfterViewInit, OnDestroy {
   @ViewChild('editorContainer', { static: true }) _editorContainer: ElementRef;
   @Output() onInit = new EventEmitter<any>();
   protected _editor: any;
-  protected _options: any;
+  protected _options: any = {};
   protected _windowResizeSubscription: Subscription;
 
   constructor(
